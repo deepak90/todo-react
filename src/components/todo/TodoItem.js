@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 
 export const TodoItem = (props) => {
+    const handleToggle = () => props.handleToggle(props.id)
     return (
-        <li> <input type="checkbox" defaultChecked={props.isComplete}/> {props.name} </li>
+        <li> <input type="checkbox" onChange={handleToggle} checked={props.isComplete}/> {props.name} </li>
     )
 }
     

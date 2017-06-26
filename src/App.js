@@ -15,13 +15,22 @@ class App extends Component {
       currentTodo : '' 
     }
 
-
   handleInputChange = (e) => {
     this.setState(
       {
         currentTodo: e.target.value
       }
     )
+  }
+
+  handleToggle = (id) => {
+    const todo = findTodoById(this.state.todos, id);
+    const toggledTodo = toggleTodo(todo);
+    const updatedTodos = updateTodo(this.state.todos, toggledTodo);
+
+    this.setState({
+      todos: updatedTodos
+    });
   }
 
   handleSubmit = (e) => {
@@ -48,7 +57,6 @@ class App extends Component {
     }) 
   }
 
-
   render() {
     const submitHandler = this.state.currentTodo ? this.handleSubmit : this.handleSubmitError ;
     return (
@@ -63,7 +71,7 @@ class App extends Component {
               handleInputChange={this.handleInputChange} 
               handleSubmit={submitHandler} 
               currentTodo={this.state.currentTodo}/>
-            <TodoList todos={this.state.todos}/>
+            <TodoList handleToggle={this.handleToggle} todos={this.state.todos}/>
         </div>
       </div>
     );
